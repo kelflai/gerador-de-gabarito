@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Gabarito Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-hero">
+        <p class="eyebrow">Plataforma online</p>
+        <h1>Gerador de Gabarito</h1>
+        <p class="lead">
+          Cadastre sua conta, salve provas no banco de dados e registre cada correção
+          com nome do aluno, turma, turno e disciplina.
+        </p>
+      </div>
+
+      <div class="auth-card">
+        <div class="tab-row">
+          <button id="showLoginBtn" class="tab-button active">Entrar</button>
+          <button id="showRegisterBtn" class="tab-button">Criar conta</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <label>
+            E-mail
+            <input id="loginEmail" type="email" placeholder="professor@escola.com">
+          </label>
+          <label>
+            Senha
+            <input id="loginPassword" type="password" placeholder="Sua senha">
+          </label>
+          <button class="primary wide" type="submit">Entrar no sistema</button>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <label>
+            Nome
+            <input id="registerName" type="text" placeholder="Seu nome">
+          </label>
+          <label>
+            E-mail
+            <input id="registerEmail" type="email" placeholder="professor@escola.com">
+          </label>
+          <label>
+            Senha
+            <input id="registerPassword" type="password" placeholder="Crie uma senha">
+          </label>
+          <button class="primary wide" type="submit">Criar conta</button>
+        </form>
+
+        <p id="authMessage" class="message"></p>
+      </div>
+    </section>
+
+    <section id="appScreen" class="app-screen hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sistema com banco de dados</p>
+          <h2>Painel do Gerador de Gabarito</h2>
+          <p id="welcomeText" class="muted"></p>
+        </div>
+        <div class="topbar-actions">
+          <button id="refreshDataBtn" class="ghost">Atualizar dados</button>
+          <button id="logoutBtn" class="ghost">Sair</button>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel exam-editor">
+          <div class="section-heading">
+            <div>
+              <h3>Gabarito oficial</h3>
+              <p class="muted">Cadastre a prova e salve online.</p>
+            </div>
+            <div class="badge-group">
+              <span class="badge">Online</span>
+              <span class="badge accent">Banco ativo</span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              Título da prova
+              <input id="examTitle" type="text" value="Prova Objetiva">
+            </label>
+            <label>
+              Disciplina
+              <input id="subject" type="text" value="Matemática">
+            </label>
+            <label>
+              Turma
+              <input id="className" type="text" value="Turma A">
+            </label>
+            <label>
+              Turno
+              <select id="shift">
+                <option value="Manhã">Manhã</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noite">Noite</option>
+                <option value="Integral">Integral</option>
+              </select>
+            </label>
+            <label>
+              Quantidade de questões
+              <input id="questionCount" type="number" min="5" max="50" value="10">
+            </label>
+            <label>
+              Alternativas por questão
+              <select id="choiceCount">
+                <option value="4">4 alternativas (A-D)</option>
+                <option value="5" selected>5 alternativas (A-E)</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="buildAnswerKeyBtn" class="primary">Montar gabarito</button>
+            <button id="saveExamBtn" class="primary">Salvar online</button>
+            <button id="newExamBtn" class="ghost">Novo gabarito</button>
+            <button id="printSheetBtn" class="ghost">Imprimir folha</button>
+          </div>
+
+          <div class="stats">
+            <article>
+              <span>Questões</span>
+              <strong id="statQuestions">10</strong>
+            </article>
+            <article>
+              <span>Alternativas</span>
+              <strong id="statChoices">5</strong>
+            </article>
+            <article>
+              <span>Acertos do aluno</span>
+              <strong id="statScore">0</strong>
+            </article>
+          </div>
+
+          <p id="appMessage" class="message"></p>
+          <div id="answerKeyEditor" class="answer-key-editor"></div>
+        </section>
+
+        <section class="panel library-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Gabaritos salvos</h3>
+              <p class="muted">Abra e continue um gabarito já cadastrado.</p>
+            </div>
+          </div>
+          <div id="examList" class="record-list"></div>
+        </section>
+
+        <section class="panel sheet-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Folha oficial</h3>
+              <p class="muted">Base para impressão e leitura pela câmera.</p>
+            </div>
+          </div>
+          <div id="sheetPreview" class="sheet-preview"></div>
+        </section>
+
+        <section class="panel camera-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Correção do aluno</h3>
+              <p class="muted">Capture a folha e salve o resultado no banco.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              Nome do aluno
+              <input id="studentName" type="text" placeholder="Nome completo">
+            </label>
+            <label>
+              Turma do aluno
+              <input id="studentClassName" type="text" placeholder="Turma A">
+            </label>
+            <label>
+              Turno
+              <select id="studentShift">
+                <option value="Manhã">Manhã</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noite">Noite</option>
+                <option value="Integral">Integral</option>
+              </select>
+            </label>
+            <label>
+              Disciplina
+              <input id="studentSubject" type="text" placeholder="Matemática">
+            </label>
+          </div>
+
+          <div class="camera-controls">
+            <button id="startCameraBtn" class="primary">Abrir câmera</button>
+            <button id="captureBtn" class="ghost" disabled>Capturar e corrigir</button>
+            <button id="saveSubmissionBtn" class="primary" disabled>Salvar correção</button>
+            <button id="stopCameraBtn" class="ghost" disabled>Fechar câmera</button>
+          </div>
+
+          <div class="camera-stage">
+            <video id="cameraFeed" autoplay playsinline muted></video>
+            <div class="frame-guide">
+              <div class="frame-guide-inner"></div>
+            </div>
+          </div>
+
+          <canvas id="captureCanvas" hidden></canvas>
+
+          <div class="tips">
+            <h4>Dicas para leitura</h4>
+            <ul>
+              <li>Use `localhost` ou `https` para liberar a câmera.</li>
+              <li>Alinhe a folha dentro da moldura branca.</li>
+              <li>Peça um preenchimento escuro e sem rasuras.</li>
+            </ul>
+          </div>
+
+          <div class="result-panel">
+            <h4>Resultado da correção</h4>
+            <p id="resultSummary">Nenhuma correção realizada ainda.</p>
+            <div id="resultList" class="result-list"></div>
+          </div>
+        </section>
+
+        <section class="panel submissions-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Correções salvas</h3>
+              <p class="muted">Histórico online por aluno.</p>
+            </div>
+          </div>
+          <div id="submissionList" class="record-list"></div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <template id="questionEditorTemplate">
+    <div class="question-editor-card">
+      <div class="question-editor-header">
+        <strong class="question-label"></strong>
+        <span class="question-status">Defina a resposta oficial</span>
+      </div>
+      <div class="choices-row"></div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
