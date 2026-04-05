@@ -286,11 +286,21 @@ function renderSheet() {
         <p class="school-line school-period">${state.questionCount}ª AVALIACAO  PERIODO ${escapeHtml(now.toLocaleDateString("pt-BR"))}</p>
       </div>
     </div>
+    <div class="question-instructions">
+      <strong>PROVA OBJETIVA</strong>
+      <p>CUIDADO AO MARCAR. PREENCHA APENAS UMA ALTERNATIVA POR QUESTAO.</p>
+    </div>
     <div class="sheet-layout">
       <div class="question-column">
-        <div class="question-instructions">
-          <strong>PROVA OBJETIVA</strong>
-          <p>CUIDADO AO MARCAR. PREENCHA APENAS UMA ALTERNATIVA POR QUESTAO.</p>
+        <div class="question-placeholder">
+          <div class="placeholder-title">Questoes</div>
+          <div class="placeholder-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
       <aside class="scan-column">
@@ -700,17 +710,17 @@ function detectMarkedAnswers(context, width, height) {
 }
 
 function calculateGuideGrid(width, height, questionCount, choiceCount) {
-  const guideWidth = width * 0.72;
-  const guideHeight = height * 0.84;
-  const startX = (width - guideWidth) / 2;
-  const startY = (height - guideHeight) / 2;
-  const topOffset = guideHeight * 0.20;
-  const usableHeight = guideHeight * 0.58;
-  const leftOffset = guideWidth * 0.54;
-  const usableWidth = guideWidth * 0.28;
+  const guideWidth = width * 0.56;
+  const guideHeight = height * 0.72;
+  const startX = width * 0.39;
+  const startY = height * 0.17;
+  const topOffset = guideHeight * 0.46;
+  const usableHeight = guideHeight * 0.42;
+  const leftOffset = guideWidth * 0.20;
+  const usableWidth = guideWidth * 0.62;
   const rowGap = usableHeight / questionCount;
   const colGap = usableWidth / choiceCount;
-  const radius = Math.min(colGap, rowGap) * 0.23;
+  const radius = Math.min(colGap, rowGap) * 0.2;
 
   return Array.from({ length: questionCount }, (_, rowIndex) => (
     Array.from({ length: choiceCount }, (_, colIndex) => ({
