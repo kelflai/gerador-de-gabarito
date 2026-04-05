@@ -772,29 +772,28 @@ button:disabled {
     background: #fff;
   }
 
-  .topbar,
-  .exam-editor,
-  .library-panel,
-  .camera-panel,
-  .submissions-panel {
-    display: none !important;
+  body * {
+    visibility: hidden !important;
   }
 
-  .dashboard {
-    display: block;
+  #sheetPreview,
+  #sheetPreview * {
+    visibility: visible !important;
   }
 
-  .sheet-panel,
-  .sheet-preview,
-  .sheet-paper {
+  #sheetPreview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
     padding: 0;
-    border: none;
-    box-shadow: none;
-    background: #fff;
+    background: #fff !important;
   }
 
-  .sheet-preview {
-    margin-top: 0;
+  #sheetPreviewMirror,
+  #sheetPreviewMirror * {
+    display: none !important;
   }
 
   .sheet-paper {
@@ -807,12 +806,14 @@ button:disabled {
     page-break-inside: avoid;
   }
 
-  .alignment-markers {
-    display: none;
-  }
-
-  .screen-only {
-    display: none !important;
+  .sheet-preview,
+  .sheet-panel,
+  .section-heading {
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    margin: 0 !important;
   }
 
   .sheet-paper {
