@@ -272,21 +272,11 @@ function renderSheet() {
     for (let choiceIndex = 0; choiceIndex < state.choiceCount; choiceIndex += 1) {
       const bubble = document.createElement("span");
       bubble.className = "bubble";
-      if (state.officialAnswers[questionIndex] === choiceIndex) {
-        bubble.classList.add("correct");
-      }
-      if (state.studentAnswers[questionIndex] === choiceIndex) {
-        bubble.classList.add("answer");
-      }
       bubble.textContent = LETTERS[choiceIndex];
       bubbleRow.appendChild(bubble);
     }
 
-    const legend = document.createElement("span");
-    legend.className = "paper-meta screen-only";
-    legend.textContent = `Oficial: ${LETTERS[state.officialAnswers[questionIndex]]}`;
-
-    row.append(questionTag, bubbleRow, legend);
+    row.append(questionTag, bubbleRow);
     grid.appendChild(row);
   }
 

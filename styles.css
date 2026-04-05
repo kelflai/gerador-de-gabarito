@@ -371,7 +371,7 @@ select {
 
 .paper-row {
   display: grid;
-  grid-template-columns: 48px 1fr auto;
+  grid-template-columns: 48px 1fr;
   gap: 8px;
   align-items: center;
 }
@@ -587,6 +587,7 @@ button:disabled {
   }
 
   .paper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 4px;
   }
 
@@ -604,24 +605,27 @@ button:disabled {
   }
 
   .bubble {
-    width: 20px;
-    height: 20px;
-    font-size: 0.55rem;
+    width: 18px;
+    height: 18px;
+    font-size: 0.5rem;
     border: 1.4px solid #000;
     color: #000;
     background: #fff !important;
     box-shadow: none !important;
   }
 
-  .bubble.correct,
-  .bubble.answer {
-    background: #fff !important;
-    border-color: #000 !important;
-    box-shadow: none !important;
+  .paper-row strong {
+    font-size: 0.72rem;
   }
 
   .screen-only {
     display: none !important;
+  }
+
+  @media (max-width: 700px) {
+    .paper-grid {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
