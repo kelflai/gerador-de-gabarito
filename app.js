@@ -283,7 +283,7 @@ function renderSheet() {
     }
 
     const legend = document.createElement("span");
-    legend.className = "paper-meta";
+    legend.className = "paper-meta screen-only";
     legend.textContent = `Oficial: ${LETTERS[state.officialAnswers[questionIndex]]}`;
 
     row.append(questionTag, bubbleRow, legend);
