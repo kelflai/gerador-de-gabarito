@@ -406,9 +406,10 @@ select {
 }
 
 .sheet-paper {
-  max-width: 560px;
+  max-width: 820px;
+  min-height: 1120px;
   margin: 0 auto;
-  padding: 14px;
+  padding: 20px 18px;
   border: 2px solid #33271e;
   border-radius: 16px;
   background: #fff;
@@ -417,7 +418,7 @@ select {
 .school-header {
   border-bottom: 1px solid #000;
   padding-bottom: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .school-name {
@@ -440,31 +441,32 @@ select {
 
 .sheet-layout {
   display: grid;
-  grid-template-columns: 1fr 170px;
-  gap: 10px;
+  grid-template-columns: 1fr 185px;
+  gap: 14px;
   align-items: start;
+  margin-bottom: 18px;
 }
 
 .question-column {
-  min-height: 300px;
+  min-height: 270px;
 }
 
 .question-placeholder {
   border: 1px solid #cdbfae;
-  min-height: 300px;
-  padding: 10px;
+  min-height: 270px;
+  padding: 14px;
   background: #fffdf9;
 }
 
 .placeholder-title {
-  font-size: 0.78rem;
+  font-size: 0.94rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .placeholder-lines {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .placeholder-lines span {
@@ -473,12 +475,19 @@ select {
   background: #d4c8b9;
 }
 
+.placeholder-lines span:nth-child(1) { width: 98%; }
+.placeholder-lines span:nth-child(2) { width: 96%; }
+.placeholder-lines span:nth-child(3) { width: 94%; }
+.placeholder-lines span:nth-child(4) { width: 97%; }
+.placeholder-lines span:nth-child(5) { width: 92%; }
+
 .question-instructions {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   text-align: center;
-  padding: 5px 6px;
-  font-size: 0.52rem;
+  padding: 7px 10px;
+  font-size: 0.7rem;
+  margin-bottom: 10px;
 }
 
 .question-instructions p {
@@ -492,30 +501,32 @@ select {
 .scan-sheet {
   border: 1px solid #000;
   background: #f8f6ef;
-  padding: 6px 6px 8px;
+  padding: 8px 8px 10px;
+  max-width: 176px;
+  margin-left: auto;
 }
 
 .scan-top-band {
-  height: 7px;
+  height: 9px;
   background: rgba(65, 221, 162, 0.7);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .scan-top-markers,
 .scan-bottom-markers {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .scan-bottom-markers {
-  margin-top: 6px;
+  margin-top: 8px;
   margin-bottom: 0;
 }
 
 .scan-marker {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: #111;
 }
 
@@ -524,7 +535,7 @@ select {
 }
 
 .qr-panel {
-  width: 110px;
+  width: 96px;
   margin: 0 auto 8px;
   border: 1px solid #000;
   background: #fff;
@@ -544,19 +555,20 @@ select {
 
 .scan-answer-grid {
   display: grid;
-  gap: 3px;
+  gap: 4px;
   align-items: start;
 }
 
 .scan-row {
   display: grid;
-  grid-template-columns: 24px 1fr;
+  grid-template-columns: 26px 1fr;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .scan-question-tag {
-  font-size: 0.62rem;
+  font-size: 0.64rem;
+  line-height: 1;
 }
 
 .scan-bubble-row {
@@ -577,11 +589,48 @@ select {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  padding-left: 28px;
+  padding-left: 30px;
   font-size: 0.56rem;
   text-align: center;
   text-transform: lowercase;
 }
+
+.exam-body-placeholder {
+  border-top: 1px solid #000;
+  padding-top: 12px;
+}
+
+.exam-body-placeholder h4 {
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+}
+
+.exam-question-block {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: start;
+  font-size: 0.76rem;
+}
+
+.exam-question-lines {
+  display: grid;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.exam-question-lines span {
+  display: block;
+  height: 1px;
+  background: #47413a;
+  opacity: 0.35;
+}
+
+.exam-question-lines span:nth-child(1) { width: 100%; }
+.exam-question-lines span:nth-child(2) { width: 96%; }
+.exam-question-lines span:nth-child(3) { width: 94%; }
+.exam-question-lines span:nth-child(4) { width: 90%; }
 
 .camera-stage {
   position: relative;
@@ -767,9 +816,9 @@ button:disabled {
   }
 
   .sheet-paper {
-    width: 148mm;
-    min-height: 150mm;
-    padding: 4mm;
+    width: 182mm;
+    min-height: 278mm;
+    padding: 5mm;
   }
 
   .school-header {
@@ -787,12 +836,13 @@ button:disabled {
   }
 
   .sheet-layout {
-    grid-template-columns: 1fr 46mm;
+    grid-template-columns: 1fr 42mm;
     gap: 4mm;
+    margin-bottom: 5mm;
   }
 
   .question-column {
-    min-height: 90mm;
+    min-height: 68mm;
   }
 
   .question-instructions {
@@ -801,8 +851,8 @@ button:disabled {
   }
 
   .question-placeholder {
-    min-height: 90mm;
-    padding: 4px;
+    min-height: 68mm;
+    padding: 3.5mm;
   }
 
   .placeholder-title {
@@ -815,7 +865,8 @@ button:disabled {
   }
 
   .scan-sheet {
-    padding: 3px;
+    padding: 2.4mm;
+    max-width: 42mm;
   }
 
   .scan-top-band {
@@ -829,8 +880,8 @@ button:disabled {
   }
 
   .qr-panel {
-    width: 28mm;
-    margin-bottom: 4px;
+    width: 24mm;
+    margin-bottom: 3mm;
   }
 
   .scan-answer-grid {
@@ -838,7 +889,7 @@ button:disabled {
   }
 
   .scan-row {
-    grid-template-columns: 12px 1fr;
+    grid-template-columns: 6.5mm 1fr;
     gap: 2px;
   }
 
@@ -847,7 +898,7 @@ button:disabled {
   }
 
   .scan-bubble-row {
-    gap: 4px;
+    gap: 2px;
   }
 
   .scan-bubble {
@@ -858,7 +909,27 @@ button:disabled {
   .scan-choice-labels {
     font-size: 0.38rem;
     gap: 2px;
-    padding-left: 14px;
+    padding-left: 7mm;
+  }
+
+  .exam-body-placeholder {
+    padding-top: 4mm;
+  }
+
+  .exam-body-placeholder h4 {
+    font-size: 0.7rem;
+    margin-bottom: 3mm;
+  }
+
+  .exam-question-block {
+    grid-template-columns: 6mm 1fr;
+    gap: 3mm;
+    margin-bottom: 4mm;
+    font-size: 0.58rem;
+  }
+
+  .exam-question-lines {
+    gap: 3mm;
   }
 }
 

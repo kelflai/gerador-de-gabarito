@@ -326,6 +326,36 @@ function renderSheet() {
         </div>
       </aside>
     </div>
+    <div class="exam-body-placeholder">
+      <h4>Questoes</h4>
+      <div class="exam-question-block">
+        <strong>1.</strong>
+        <div class="exam-question-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="exam-question-block">
+        <strong>2.</strong>
+        <div class="exam-question-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="exam-question-block">
+        <strong>3.</strong>
+        <div class="exam-question-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
   `;
 
   const grid = paper.querySelector(".scan-answer-grid");
