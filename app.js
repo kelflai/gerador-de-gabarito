@@ -5,6 +5,8 @@ const USER_KEY = "gabarito-user";
 const state = {
   token: localStorage.getItem(TOKEN_KEY) || "",
   user: loadUser(),
+  currentView: "exams",
+  examSearch: "",
   currentExamId: null,
   examTitle: "Prova Objetiva",
   subject: "Matematica",
@@ -34,8 +36,15 @@ const els = {
   registerPassword: document.getElementById("registerPassword"),
   authMessage: document.getElementById("authMessage"),
   welcomeText: document.getElementById("welcomeText"),
+  viewExamsBtn: document.getElementById("viewExamsBtn"),
+  viewSheetsBtn: document.getElementById("viewSheetsBtn"),
+  viewAboutBtn: document.getElementById("viewAboutBtn"),
+  viewExams: document.getElementById("viewExams"),
+  viewSheets: document.getElementById("viewSheets"),
+  viewAbout: document.getElementById("viewAbout"),
   refreshDataBtn: document.getElementById("refreshDataBtn"),
   logoutBtn: document.getElementById("logoutBtn"),
+  examSearch: document.getElementById("examSearch"),
   examTitle: document.getElementById("examTitle"),
   subject: document.getElementById("subject"),
   className: document.getElementById("className"),
@@ -52,7 +61,9 @@ const els = {
   statChoices: document.getElementById("statChoices"),
   statScore: document.getElementById("statScore"),
   examList: document.getElementById("examList"),
+  examListMirror: document.getElementById("examListMirror"),
   sheetPreview: document.getElementById("sheetPreview"),
+  sheetPreviewMirror: document.getElementById("sheetPreviewMirror"),
   studentName: document.getElementById("studentName"),
   studentClassName: document.getElementById("studentClassName"),
   studentShift: document.getElementById("studentShift"),
@@ -93,8 +104,15 @@ function bindEvents() {
   els.showRegisterBtn.addEventListener("click", () => setAuthMode("register"));
   els.loginForm.addEventListener("submit", handleLogin);
   els.registerForm.addEventListener("submit", handleRegister);
+  els.viewExamsBtn.addEventListener("click", () => setAppView("exams"));
+  els.viewSheetsBtn.addEventListener("click", () => setAppView("sheets"));
+  els.viewAboutBtn.addEventListener("click", () => setAppView("about"));
   els.refreshDataBtn.addEventListener("click", bootstrapApp);
   els.logoutBtn.addEventListener("click", logout);
+  els.examSearch.addEventListener("input", () => {
+    state.examSearch = els.examSearch.value.trim().toLowerCase();
+    renderExamList();
+  });
 
   els.examTitle.addEventListener("input", updateExamMetaFromInputs);
   els.subject.addEventListener("input", updateExamMetaFromInputs);
@@ -128,7 +146,18 @@ function updateVisibleScreen() {
   els.appScreen.classList.toggle("hidden", !isAuthenticated);
   if (isAuthenticated) {
     els.welcomeText.textContent = `Professor(a): ${state.user.name} | ${state.user.email}`;
+    setAppView(state.currentView);
   }
+}
+
+function setAppView(view) {
+  state.currentView = view;
+  els.viewExamsBtn.classList.toggle("active", view === "exams");
+  els.viewSheetsBtn.classList.toggle("active", view === "sheets");
+  els.viewAboutBtn.classList.toggle("active", view === "about");
+  els.viewExams.classList.toggle("hidden", view !== "exams");
+  els.viewSheets.classList.toggle("hidden", view !== "sheets");
+  els.viewAbout.classList.toggle("hidden", view !== "about");
 }
 
 function createAnswerArray() {
@@ -282,6 +311,8 @@ function renderSheet() {
 
   els.sheetPreview.innerHTML = "";
   els.sheetPreview.appendChild(paper);
+  els.sheetPreviewMirror.innerHTML = "";
+  els.sheetPreviewMirror.appendChild(paper.cloneNode(true));
 }
 
 function renderResults() {
@@ -308,24 +339,38 @@ function renderResults() {
 }
 
 function renderExamList() {
-  els.examList.innerHTML = "";
-  if (!state.exams.length) {
-    els.examList.innerHTML = '<p class="empty-state">Nenhum gabarito salvo ainda.</p>';
+  const lists = [els.examList, els.examListMirror];
+  lists.forEach((list) => { list.innerHTML = ""; });
+
+  const filteredExams = state.exams.filter((exam) => {
+    if (!state.examSearch) {
+      return true;
+    }
+    const haystack = `${exam.title} ${exam.subject} ${exam.className} ${exam.shift}`.toLowerCase();
+    return haystack.includes(state.examSearch);
+  });
+
+  if (!filteredExams.length) {
+    lists.forEach((list) => {
+      list.innerHTML = '<p class="empty-state">Nenhum gabarito encontrado.</p>';
+    });
     return;
   }
 
-  state.exams.forEach((exam) => {
-    const item = document.createElement("button");
-    item.type = "button";
-    item.className = `record-card ${state.currentExamId === exam.id ? "selected" : ""}`;
-    item.innerHTML = `
-      <strong>${escapeHtml(exam.title)}</strong>
-      <span>${escapeHtml(exam.subject)}</span>
-      <span>${escapeHtml(exam.className)} | ${escapeHtml(exam.shift)}</span>
-      <span>${exam.questionCount} questoes</span>
-    `;
-    item.addEventListener("click", () => loadExamIntoForm(exam.id));
-    els.examList.appendChild(item);
+  filteredExams.forEach((exam) => {
+    lists.forEach((list) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = `record-card ${state.currentExamId === exam.id ? "selected" : ""}`;
+      item.innerHTML = `
+        <strong>${escapeHtml(exam.title)}</strong>
+        <span>${escapeHtml(exam.subject)}</span>
+        <span>${escapeHtml(exam.className)} | ${escapeHtml(exam.shift)}</span>
+        <span>${exam.questionCount} questoes</span>
+      `;
+      item.addEventListener("click", () => loadExamIntoForm(exam.id));
+      list.appendChild(item);
+    });
   });
 }
 

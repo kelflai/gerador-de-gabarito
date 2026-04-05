@@ -57,24 +57,44 @@
     </section>
 
     <section id="appScreen" class="app-screen hidden">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Sistema com banco de dados</p>
-          <h2>Painel do Gerador de Gabarito</h2>
-          <p id="welcomeText" class="muted"></p>
+      <header class="sitebar">
+        <div class="brand-block">
+          <div class="brand-mark">G</div>
+          <div>
+            <strong class="brand-name">Gerador de Gabarito</strong>
+            <p id="welcomeText" class="muted compact"></p>
+          </div>
         </div>
+        <nav class="main-nav">
+          <button id="viewExamsBtn" class="nav-button active">Avaliações</button>
+          <button id="viewSheetsBtn" class="nav-button">Gabaritos</button>
+          <button id="viewAboutBtn" class="nav-button">Sobre</button>
+        </nav>
         <div class="topbar-actions">
-          <button id="refreshDataBtn" class="ghost">Atualizar dados</button>
+          <button id="refreshDataBtn" class="ghost">Atualizar</button>
           <button id="logoutBtn" class="ghost">Sair</button>
         </div>
       </header>
 
-      <main class="dashboard">
-        <section class="panel exam-editor">
+      <section class="panel search-panel">
+        <div class="search-row">
+          <div>
+            <p class="eyebrow">Answer Sheets</p>
+            <h2>Painel de avaliações e gabaritos</h2>
+          </div>
+          <label class="search-box">
+            Buscar gabarito
+            <input id="examSearch" type="text" placeholder="Digite o nome da avaliação ou turma">
+          </label>
+        </div>
+      </section>
+
+      <main id="viewExams" class="dashboard app-view">
+        <section class="panel exam-editor compact-panel">
           <div class="section-heading">
             <div>
-              <h3>Gabarito oficial</h3>
-              <p class="muted">Cadastre a prova e salve online.</p>
+              <h3>Avaliação</h3>
+              <p class="muted">Crie, edite e salve o gabarito oficial.</p>
             </div>
             <div class="badge-group">
               <span class="badge">Online</span>
@@ -118,10 +138,10 @@
           </div>
 
           <div class="actions">
-            <button id="buildAnswerKeyBtn" class="primary">Montar gabarito</button>
-            <button id="saveExamBtn" class="primary">Salvar online</button>
-            <button id="newExamBtn" class="ghost">Novo gabarito</button>
-            <button id="printSheetBtn" class="ghost">Imprimir folha</button>
+            <button id="buildAnswerKeyBtn" class="primary">Gerar gabarito</button>
+            <button id="saveExamBtn" class="primary">Salvar</button>
+            <button id="newExamBtn" class="ghost">Nova avaliação</button>
+            <button id="printSheetBtn" class="ghost">Imprimir</button>
           </div>
 
           <div class="stats">
@@ -143,31 +163,31 @@
           <div id="answerKeyEditor" class="answer-key-editor"></div>
         </section>
 
-        <section class="panel library-panel">
+        <section class="panel library-panel compact-panel">
           <div class="section-heading">
             <div>
-              <h3>Gabaritos salvos</h3>
-              <p class="muted">Abra e continue um gabarito já cadastrado.</p>
+              <h3>Lista de gabaritos</h3>
+              <p class="muted">Abra, filtre e continue avaliações já cadastradas.</p>
             </div>
           </div>
           <div id="examList" class="record-list"></div>
         </section>
 
-        <section class="panel sheet-panel">
+        <section class="panel sheet-panel compact-panel">
           <div class="section-heading">
             <div>
-              <h3>Folha oficial</h3>
-              <p class="muted">Base para impressão e leitura pela câmera.</p>
+              <h3>Prévia da folha</h3>
+              <p class="muted">Visualização da folha que será impressa.</p>
             </div>
           </div>
           <div id="sheetPreview" class="sheet-preview"></div>
         </section>
 
-        <section class="panel camera-panel">
+        <section class="panel camera-panel compact-panel">
           <div class="section-heading">
             <div>
-              <h3>Correção do aluno</h3>
-              <p class="muted">Capture a folha e salve o resultado no banco.</p>
+              <h3>Correção por câmera</h3>
+              <p class="muted">Corrija e salve o resultado do aluno.</p>
             </div>
           </div>
 
@@ -227,16 +247,61 @@
           </div>
         </section>
 
-        <section class="panel submissions-panel">
+        <section class="panel submissions-panel compact-panel">
           <div class="section-heading">
             <div>
-              <h3>Correções salvas</h3>
+              <h3>Correções registradas</h3>
               <p class="muted">Histórico online por aluno.</p>
             </div>
           </div>
           <div id="submissionList" class="record-list"></div>
         </section>
       </main>
+
+      <main id="viewSheets" class="dashboard app-view hidden">
+        <section class="panel library-panel compact-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Gabaritos impressos</h3>
+              <p class="muted">Selecione um gabarito salvo para visualizar e imprimir.</p>
+            </div>
+          </div>
+          <div id="examListMirror" class="record-list"></div>
+        </section>
+
+        <section class="panel sheet-panel compact-panel">
+          <div class="section-heading">
+            <div>
+              <h3>Folha de respostas</h3>
+              <p class="muted">Modelo compacto para aplicação e correção.</p>
+            </div>
+          </div>
+          <div id="sheetPreviewMirror" class="sheet-preview"></div>
+        </section>
+      </main>
+
+      <section id="viewAbout" class="panel about-panel app-view hidden">
+        <div class="section-heading">
+          <div>
+            <h3>Sobre o sistema</h3>
+            <p class="muted">Modelo inspirado em plataformas de avaliações online, adaptado para o seu fluxo escolar.</p>
+          </div>
+        </div>
+        <div class="about-grid">
+          <article>
+            <strong>Avaliações</strong>
+            <p>Cadastre provas por turma, disciplina e turno com edição rápida de respostas oficiais.</p>
+          </article>
+          <article>
+            <strong>Gabaritos</strong>
+            <p>Imprima uma folha compacta e limpa, pronta para aplicação em sala.</p>
+          </article>
+          <article>
+            <strong>Correção</strong>
+            <p>Use a câmera do navegador para identificar marcações e registrar o desempenho do aluno.</p>
+          </article>
+        </div>
+      </section>
     </section>
   </div>
 
