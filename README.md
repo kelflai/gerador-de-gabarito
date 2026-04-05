@@ -13,7 +13,7 @@ Sistema web completo para:
 
 - Frontend: HTML, CSS e JavaScript puro
 - Backend: Node.js + Express
-- Banco de dados: SQLite
+- Banco de dados: SQLite local ou Postgres externo
 - Autenticacao: JWT
 
 ## Rodando localmente
@@ -41,7 +41,7 @@ http://localhost:3000
 - `server.js`: servidor, autenticacao e API
 - `app.js`: interface e integracao com API
 - `styles.css`: visual do sistema
-- `data/gabarito.db`: banco SQLite criado automaticamente
+- `data/gabarito.db`: banco SQLite local quando `DATABASE_URL` nao estiver configurada
 - `render.yaml`: configuracao pronta para deploy no Render
 
 ## Deploy online
@@ -55,8 +55,13 @@ Passos:
 3. Aguarde o build.
 4. O sistema ficara online com URL publica e banco persistente.
 
+## Variaveis de ambiente
+
+- `JWT_SECRET`: segredo do login
+- `DATABASE_URL`: string de conexao Postgres para persistencia externa
+
 ## Observacoes
 
 - Para a camera funcionar, use `localhost` no ambiente local ou `https` em producao.
 - A leitura automatica atual funciona melhor quando a folha estiver reta, centralizada e bem iluminada.
-- O banco SQLite fica salvo na pasta `data/`.
+- Sem `DATABASE_URL`, o sistema usa SQLite local.

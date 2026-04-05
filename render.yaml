@@ -2,13 +2,11 @@ services:
   - type: web
     name: gerador-de-gabarito
     env: node
-    plan: starter
+    plan: free
     buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: JWT_SECRET
         generateValue: true
-    disk:
-      name: gabarito-data
-      mountPath: /opt/render/project/src/data
-      sizeGB: 1
+      - key: DATABASE_URL
+        sync: false
