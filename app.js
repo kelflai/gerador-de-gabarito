@@ -263,51 +263,91 @@ function renderAnswerEditor() {
 
 function renderSheet() {
   const now = new Date();
+  const qrPayload = encodeURIComponent(
+    JSON.stringify({
+      examId: state.currentExamId || "novo",
+      title: state.examTitle,
+      subject: state.subject,
+      className: state.className,
+      shift: state.shift,
+      questions: state.questionCount
+    })
+  );
   const paper = document.createElement("div");
   paper.className = "sheet-paper";
   paper.innerHTML = `
-    <div class="alignment-markers">
-      <span class="marker"></span>
-      <span class="marker"></span>
-      <span class="marker"></span>
-      <span class="marker"></span>
-    </div>
-    <div class="paper-header">
-      <div>
-        <h3>${escapeHtml(state.examTitle)}</h3>
-        <p class="paper-meta">Disciplina: ${escapeHtml(state.subject)}</p>
-        <p class="paper-meta">Turma: ${escapeHtml(state.className)} | Turno: ${escapeHtml(state.shift)}</p>
-        <p class="paper-meta">Aluno: ________________________________________</p>
-      </div>
-      <div>
-        <p class="paper-meta">Questoes: ${state.questionCount}</p>
-        <p class="paper-meta">Data: ${now.toLocaleDateString("pt-BR")}</p>
+    <div class="school-header">
+      <div class="school-header-main">
+        <h3 class="school-name">CENTRO DE ENSINO</h3>
+        <p class="school-line">ALUNO(A) ________________________________________</p>
+        <p class="school-line">TURMA __________________ DATA ____ / ____ / ______</p>
+        <p class="school-line">PROFESSOR: ${escapeHtml(state.user?.name || "Professor")}</p>
+        <p class="school-line">Disciplina: ${escapeHtml(state.subject)}  Tema: ${escapeHtml(state.examTitle)}</p>
+        <p class="school-line school-period">${state.questionCount}ª AVALIACAO  PERIODO ${escapeHtml(now.toLocaleDateString("pt-BR"))}</p>
       </div>
     </div>
-    <div class="paper-grid"></div>
+    <div class="sheet-layout">
+      <div class="question-column">
+        <div class="question-instructions">
+          <strong>PROVA OBJETIVA</strong>
+          <p>CUIDADO AO MARCAR. PREENCHA APENAS UMA ALTERNATIVA POR QUESTAO.</p>
+        </div>
+      </div>
+      <aside class="scan-column">
+        <div class="scan-sheet">
+          <div class="scan-top-band"></div>
+          <div class="scan-top-markers">
+            <span class="scan-marker"></span>
+            <span class="scan-marker"></span>
+          </div>
+          <div class="scan-body">
+            <div class="qr-panel">
+              <img alt="QR da avaliacao" class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${qrPayload}">
+            </div>
+            <div class="scan-answer-panel">
+              <div class="scan-answer-grid"></div>
+              <div class="scan-choice-labels"></div>
+            </div>
+          </div>
+          <div class="scan-bottom-markers">
+            <span class="scan-marker"></span>
+            <span class="scan-marker"></span>
+          </div>
+        </div>
+      </aside>
+    </div>
   `;
 
-  const grid = paper.querySelector(".paper-grid");
+  const grid = paper.querySelector(".scan-answer-grid");
+  const choiceLabels = paper.querySelector(".scan-choice-labels");
   for (let questionIndex = 0; questionIndex < state.questionCount; questionIndex += 1) {
     const row = document.createElement("div");
-    row.className = "paper-row";
+    row.className = "scan-row";
 
     const questionTag = document.createElement("strong");
-    questionTag.textContent = `${questionIndex + 1}.`;
+    questionTag.className = "scan-question-tag";
+    questionTag.textContent = `Q.${questionIndex + 1}`;
 
     const bubbleRow = document.createElement("div");
-    bubbleRow.className = "bubble-row";
+    bubbleRow.className = "scan-bubble-row";
+    bubbleRow.style.gridTemplateColumns = `repeat(${state.choiceCount}, 1fr)`;
 
     for (let choiceIndex = 0; choiceIndex < state.choiceCount; choiceIndex += 1) {
       const bubble = document.createElement("span");
-      bubble.className = "bubble";
-      bubble.textContent = LETTERS[choiceIndex];
+      bubble.className = "scan-bubble";
       bubbleRow.appendChild(bubble);
     }
 
     row.append(questionTag, bubbleRow);
     grid.appendChild(row);
   }
+
+  for (let choiceIndex = 0; choiceIndex < state.choiceCount; choiceIndex += 1) {
+    const label = document.createElement("span");
+    label.textContent = LETTERS[choiceIndex].toLowerCase();
+    choiceLabels.appendChild(label);
+  }
+  choiceLabels.style.gridTemplateColumns = `repeat(${state.choiceCount}, 1fr)`;
 
   els.sheetPreview.innerHTML = "";
   els.sheetPreview.appendChild(paper);
@@ -660,17 +700,17 @@ function detectMarkedAnswers(context, width, height) {
 }
 
 function calculateGuideGrid(width, height, questionCount, choiceCount) {
-  const guideWidth = width * 0.62;
-  const guideHeight = guideWidth * 1.38;
+  const guideWidth = width * 0.72;
+  const guideHeight = height * 0.84;
   const startX = (width - guideWidth) / 2;
   const startY = (height - guideHeight) / 2;
-  const topOffset = guideHeight * 0.18;
-  const usableHeight = guideHeight * 0.72;
-  const leftOffset = guideWidth * 0.17;
-  const usableWidth = guideWidth * 0.58;
+  const topOffset = guideHeight * 0.20;
+  const usableHeight = guideHeight * 0.58;
+  const leftOffset = guideWidth * 0.54;
+  const usableWidth = guideWidth * 0.28;
   const rowGap = usableHeight / questionCount;
   const colGap = usableWidth / choiceCount;
-  const radius = Math.min(colGap, rowGap) * 0.28;
+  const radius = Math.min(colGap, rowGap) * 0.23;
 
   return Array.from({ length: questionCount }, (_, rowIndex) => (
     Array.from({ length: choiceCount }, (_, colIndex) => ({
