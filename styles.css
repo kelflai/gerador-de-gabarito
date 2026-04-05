@@ -406,31 +406,32 @@ select {
 }
 
 .sheet-paper {
-  max-width: 760px;
+  max-width: 430px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 14px;
   border: 2px solid #33271e;
-  border-radius: 22px;
+  border-radius: 16px;
   background: #fff;
 }
 
 .school-header {
   border-bottom: 1px solid #000;
-  padding-bottom: 10px;
-  margin-bottom: 14px;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .school-name {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   color: #385a98;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   letter-spacing: 0.02em;
 }
 
 .school-line {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-weight: 700;
   color: #395792;
+  font-size: 0.48rem;
 }
 
 .school-period {
@@ -439,21 +440,21 @@ select {
 
 .sheet-layout {
   display: grid;
-  grid-template-columns: 1fr 292px;
-  gap: 16px;
+  grid-template-columns: 1fr 165px;
+  gap: 10px;
   align-items: start;
 }
 
 .question-column {
-  min-height: 420px;
+  min-height: 240px;
 }
 
 .question-instructions {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   text-align: center;
-  padding: 8px 12px;
-  font-size: 0.84rem;
+  padding: 5px 6px;
+  font-size: 0.52rem;
 }
 
 .question-instructions p {
@@ -467,44 +468,44 @@ select {
 .scan-sheet {
   border: 1px solid #000;
   background: #f8f6ef;
-  padding: 10px 10px 12px;
+  padding: 6px 6px 8px;
 }
 
 .scan-top-band {
-  height: 12px;
+  height: 7px;
   background: rgba(65, 221, 162, 0.7);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .scan-top-markers,
 .scan-bottom-markers {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .scan-bottom-markers {
-  margin-top: 10px;
+  margin-top: 6px;
   margin-bottom: 0;
 }
 
 .scan-marker {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   background: #111;
 }
 
 .scan-body {
   display: grid;
-  grid-template-columns: 114px 1fr;
-  gap: 10px;
+  grid-template-columns: 66px 1fr;
+  gap: 6px;
   align-items: start;
 }
 
 .qr-panel {
   border: 1px solid #000;
   background: #fff;
-  padding: 6px;
+  padding: 4px;
 }
 
 .qr-image {
@@ -515,29 +516,29 @@ select {
 
 .scan-answer-panel {
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .scan-answer-grid {
   display: grid;
-  gap: 6px;
+  gap: 3px;
 }
 
 .scan-row {
   display: grid;
-  grid-template-columns: 34px 1fr;
+  grid-template-columns: 20px 1fr;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .scan-question-tag {
-  font-size: 0.84rem;
+  font-size: 0.5rem;
 }
 
 .scan-bubble-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  gap: 4px;
 }
 
 .scan-bubble {
@@ -551,9 +552,9 @@ select {
 .scan-choice-labels {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  padding-left: 40px;
-  font-size: 0.78rem;
+  gap: 4px;
+  padding-left: 24px;
+  font-size: 0.48rem;
   text-align: center;
   text-transform: lowercase;
 }
@@ -742,7 +743,9 @@ button:disabled {
   }
 
   .sheet-paper {
-    padding: 5mm;
+    width: 100mm;
+    min-height: 150mm;
+    padding: 4mm;
   }
 
   .school-header {
@@ -760,8 +763,8 @@ button:disabled {
   }
 
   .sheet-layout {
-    grid-template-columns: 1fr 96mm;
-    gap: 8px;
+    grid-template-columns: 1fr 44mm;
+    gap: 4mm;
   }
 
   .question-column {
@@ -774,7 +777,7 @@ button:disabled {
   }
 
   .scan-sheet {
-    padding: 5px;
+    padding: 3px;
   }
 
   .scan-top-band {
@@ -788,8 +791,8 @@ button:disabled {
   }
 
   .scan-body {
-    grid-template-columns: 34mm 1fr;
-    gap: 5px;
+    grid-template-columns: 19mm 1fr;
+    gap: 3px;
   }
 
   .scan-answer-grid {
@@ -797,12 +800,12 @@ button:disabled {
   }
 
   .scan-row {
-    grid-template-columns: 18px 1fr;
-    gap: 4px;
+    grid-template-columns: 10px 1fr;
+    gap: 2px;
   }
 
   .scan-question-tag {
-    font-size: 0.55rem;
+    font-size: 0.42rem;
   }
 
   .scan-bubble-row {
@@ -815,9 +818,9 @@ button:disabled {
   }
 
   .scan-choice-labels {
-    font-size: 0.52rem;
-    gap: 4px;
-    padding-left: 22px;
+    font-size: 0.38rem;
+    gap: 2px;
+    padding-left: 12px;
   }
 }
 
